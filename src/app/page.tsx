@@ -106,6 +106,7 @@ export default function LandingPage() {
 
         <footer className="mt-16 text-center text-xs text-gray-500 pb-8">
           © {new Date().getFullYear()} Pingaroo. All rights reserved.
+          <span className="block sm:inline text-[10px] text-gray-600 mt-1 sm:ml-2">v1.0</span>
         </footer>
       </main>
     </>

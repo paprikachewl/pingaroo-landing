@@ -3,9 +3,9 @@ import { Pool } from 'pg';
 import { z } from 'zod';
 
 // Use a single global pool across hot reloads in dev to avoid exceeding connection limits.
-// @ts-ignore
+// @ts-expect-error
 const pool: Pool = global.pgPool || new Pool({ connectionString: process.env.DATABASE_URL });
-// @ts-ignore
+// @ts-expect-error
 if (!global.pgPool) global.pgPool = pool;
 
 // Zod schema to validate request body

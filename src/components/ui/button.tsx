@@ -27,14 +27,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const combinedClasses = `${baseClass} ${variantClass} ${className}`.trim();
 
     if (asChild && React.isValidElement(children)) {
-      // Do not forward the variant prop to DOM elements
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-      const { variant: _omit, ...restProps } = props as any;
-
       return React.cloneElement(children as React.ReactElement<any>, {
         className: `${combinedClasses} ${(children as React.ReactElement<any>).props.className ?? ''}`.trim(),
         ref,
-        ...restProps,
+        ...props,
       });
     }
 

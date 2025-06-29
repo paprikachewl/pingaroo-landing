@@ -29,9 +29,13 @@ export const WaitlistForm = () => {
       }
 
       setStatus('success');
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error');
-      setErrorMessage(err.message);
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage('An unexpected error occurred.');
+      }
     }
   };
 
@@ -39,7 +43,7 @@ export const WaitlistForm = () => {
     return (
       <div className="text-center p-4 rounded-lg bg-green-900/50 border border-green-700 text-green-200">
         <p className="font-semibold">Thank you for joining!</p>
-        <p className="text-sm">We'll notify you when the Pingaroo app is ready.</p>
+        <p className="text-sm">We&apos;ll notify you when the Pingaroo app is ready.</p>
       </div>
     );
   }
