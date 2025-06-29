@@ -3,9 +3,9 @@ import { Pool } from 'pg';
 import { z } from 'zod';
 
 // Use a single global pool across hot reloads in dev to avoid exceeding connection limits.
-// @ts-expect-error
+// @ts-expect-error pgPool is attached dynamically to Node global object for hot-reload
 const pool: Pool = global.pgPool || new Pool({ connectionString: process.env.DATABASE_URL });
-// @ts-expect-error
+// @ts-expect-error safe to assign pool to global for reuse across hot reloads
 if (!global.pgPool) global.pgPool = pool;
 
 // Zod schema to validate request body
