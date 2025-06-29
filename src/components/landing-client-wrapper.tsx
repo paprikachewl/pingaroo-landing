@@ -9,17 +9,29 @@ import React from 'react';
 export const WaitlistForm = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
+    setErrorMessage('');
+
     try {
-      // TODO: Replace with a fetch call to your waitlist API route
-      await new Promise((res) => setTimeout(res, 1000));
-      console.log('Submitted email for waitlist:', email);
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.email?.[0] || 'An unknown error occurred.');
+      }
+
       setStatus('success');
-    } catch {
+    } catch (err: any) {
       setStatus('error');
+      setErrorMessage(err.message);
     }
   };
 
@@ -27,31 +39,25 @@ export const WaitlistForm = () => {
     return (
       <div className="text-center p-4 rounded-lg bg-green-900/50 border border-green-700 text-green-200">
         <p className="font-semibold">Thank you for joining!</p>
-        <p className="text-sm">We&apos;ll notify you as soon as the Pingaroo app is ready.</p>
-      </div>
-    );
-  }
-
-  if (status === 'error') {
-    return (
-      <div className="text-center p-4 rounded-lg bg-red-900/50 border border-red-700 text-red-200">
-        <p className="font-semibold">Something went wrong.</p>
-        <p className="text-sm">Please try again later.</p>
+        <p className="text-sm">We'll notify you when the Pingaroo app is ready.</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your.email@example.com"
-        required
-        className="flex-grow px-4 py-2.5 rounded-md bg-gray-800 border border-gray-600 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
-        disabled={status === 'submitting'}
-      />
+      <div className="flex-grow flex flex-col">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your.email@example.com"
+          required
+          className="w-full px-4 py-2.5 rounded-md bg-gray-800 border border-gray-600 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
+          disabled={status === 'submitting'}
+        />
+        {status === 'error' && <p className="text-red-400 text-xs mt-1 text-left">{errorMessage}</p>}
+      </div>
       <Button
         type="submit"
         className="px-6 py-2.5 text-base font-semibold bg-purple-600 hover:bg-purple-500 text-white transition-colors shadow-lg disabled:bg-gray-500"
