@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Code, Send } from 'lucide-react';
 import React from 'react';
 
 // Waitlist form with client-side state
@@ -19,7 +18,7 @@ export const WaitlistForm = () => {
       await new Promise((res) => setTimeout(res, 1000));
       console.log('Submitted email for waitlist:', email);
       setStatus('success');
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };
@@ -28,7 +27,7 @@ export const WaitlistForm = () => {
     return (
       <div className="text-center p-4 rounded-lg bg-green-900/50 border border-green-700 text-green-200">
         <p className="font-semibold">Thank you for joining!</p>
-        <p className="text-sm">We'll notify you as soon as the Pingaroo app is ready.</p>
+        <p className="text-sm">We&apos;ll notify you as soon as the Pingaroo app is ready.</p>
       </div>
     );
   }

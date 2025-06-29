@@ -1,6 +1,8 @@
 'use client';
 import * as React from 'react';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type ButtonVariant = 'default' | 'outline' | 'ghost';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -26,7 +28,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (asChild && React.isValidElement(children)) {
       // Do not forward the variant prop to DOM elements
-      const { variant: _ignored, ...restProps } = props as any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const { variant: _omit, ...restProps } = props as any;
 
       return React.cloneElement(children as React.ReactElement<any>, {
         className: `${combinedClasses} ${(children as React.ReactElement<any>).props.className ?? ''}`.trim(),

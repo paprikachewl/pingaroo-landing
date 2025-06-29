@@ -48,7 +48,7 @@ export default function DocsPage() {
           <Section title="Introduction" id="introduction">
             <p>
               The Pingaroo API provides a powerful, hardened endpoint to classify any text against a natural language rule.
-              It's designed for reliability, security, and ease of use, allowing you to build intelligent workflows without the complexity of managing your own AI models.
+              It&apos;s designed for reliability, security, and ease of use, allowing you to build intelligent workflows without the complexity of managing your own AI models.
             </p>
           </Section>
 
@@ -139,7 +139,7 @@ export default function DocsPage() {
                   </tr>
                   <tr className="bg-gray-900/50">
                     <td className="p-3 font-semibold text-purple-400">Pro+</td>
-                    <td className="p-3">All Pro models, plus <code>gemini-2.5-pro</code>. Includes "Rescue Mission" feature.</td>
+                    <td className="p-3">All Pro models, plus <code>gemini-2.5-pro</code>. Includes &quot;Rescue Mission&quot; feature.</td>
                     <td className="p-3">300 requests / minute</td>
                   </tr>
                 </tbody>
@@ -154,7 +154,7 @@ export default function DocsPage() {
               <li><code>401 Unauthorized</code>: Your API key is missing or invalid.</li>
               <li><code>403 Forbidden</code>: Your tier does not have access to the requested model.</li>
               <li><code>413 Payload Too Large</code>: Your request body exceeds the 64KB limit.</li>
-              <li><code>429 Too Many Requests</code>: You have exceeded your tier's rate limit.</li>
+              <li><code>429 Too Many Requests</code>: You have exceeded your tier&apos;s rate limit.</li>
               <li><code>500 Internal Server Error</code>: A generic server error occurred. The response will contain an error ID for support.</li>
               <li><code>503 Service Unavailable</code>: The upstream AI provider (e.g., Google) is temporarily unavailable.</li>
             </ul>
